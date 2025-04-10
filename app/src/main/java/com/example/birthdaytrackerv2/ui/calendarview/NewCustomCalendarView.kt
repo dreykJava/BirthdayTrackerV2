@@ -53,7 +53,9 @@ class NewCustomCalendarView @JvmOverloads constructor(
     private val currentYear = calendar.get(Calendar.YEAR)
     private val currentMonth = calendar.get(Calendar.MONTH)
     private val currentDayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
-    private val currentWeekOfMonth = calendar.get(Calendar.WEEK_OF_MONTH)
+    //TODO Можно считать номер недели самостоятельно чтобы избежать ошибок
+    //private val currentWeekOfMonth = calendar.get(Calendar.WEEK_OF_MONTH)
+    private var currentWeekOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
     init {
         setItemsFromDb()
@@ -75,6 +77,16 @@ class NewCustomCalendarView @JvmOverloads constructor(
 
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         val firstDayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
+
+        //TODO Протестить новые вычисления curWeekOfMonth
+        currentWeekOfMonth = currentWeekOfMonth + currentDayOfWeek - 1
+
+        if (currentWeekOfMonth % 7 != 0) {
+            currentWeekOfMonth = currentWeekOfMonth / 7 + 1
+        } else {
+            currentWeekOfMonth /= 7
+        }
+        currentWeekOfMonth -= 1
 
         val textHeight = textDesign.descent() + textDesign.ascent()
         val textOffset = (textHeight / 2f)
@@ -147,7 +159,14 @@ class NewCustomCalendarView @JvmOverloads constructor(
             )
         }
 
+        //TODO Неправильно рисует текущий день для 5, 12, 19 и 26 апреля (curWeekOfMonth?)
         //Рисуем сегоодняжний день
+
+        Log.d("TAG", "Разделитель")
+        Log.d("TAG", "CurDayOfWeek: " + currentDayOfWeek)
+        Log.d("TAG", "currentWeekOfMonth: " + currentWeekOfMonth)
+        Log.d("TAG", "CurDate: " + calendar.get(Calendar.DATE))
+
         if (calendar.get(Calendar.YEAR) == currentYear
             && calendar.get(Calendar.MONTH) == currentMonth) {
             canvas.drawCircle(
