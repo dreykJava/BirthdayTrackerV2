@@ -1,7 +1,10 @@
 package com.example.birthdaytrackerv2.ui.add
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.database.Cursor
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +14,11 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.birthdaytrackerv2.R
+import com.example.birthdaytrackerv2.ReminderManager.deleteAlarm
+import com.example.birthdaytrackerv2.ReminderManager.setAlarm
 import com.example.birthdaytrackerv2.databinding.FragmentAddBirthdayBinding
 import com.example.birthdaytrackerv2.ui.data.BirthdayAdapter
 import com.example.birthdaytrackerv2.ui.data.BirthdayNote
@@ -24,6 +30,7 @@ class AddBirthdayFragment : Fragment() {
 
     private var _binding: FragmentAddBirthdayBinding? = null
     private val binding get() = _binding!!
+    private val REQUEST_CODE_POST_NOTIFICATIONS = 1
 
     private lateinit var dbHelper: MyDatabase
     private lateinit var items: ArrayList<BirthdayNote>
@@ -42,9 +49,12 @@ class AddBirthdayFragment : Fragment() {
         while (cursor.moveToNext()) {
             val id = cursor.getLong(cursor.getColumnIndexOrThrow(MyDatabase.ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(MyDatabase.NAME))
-            val date_day = cursor.getString(cursor.getColumnIndexOrThrow(MyDatabase.BIRTHDAY_DATE_DAY))
-            val date_month = cursor.getString(cursor.getColumnIndexOrThrow(MyDatabase.BIRTHDAY_DATE_MONTH))
-            val date_year: String? = cursor.getString(cursor.getColumnIndexOrThrow(MyDatabase.BIRTHDAY_DATE_YEAR))
+            val date_day =
+                cursor.getString(cursor.getColumnIndexOrThrow(MyDatabase.BIRTHDAY_DATE_DAY))
+            val date_month =
+                cursor.getString(cursor.getColumnIndexOrThrow(MyDatabase.BIRTHDAY_DATE_MONTH))
+            val date_year: String? =
+                cursor.getString(cursor.getColumnIndexOrThrow(MyDatabase.BIRTHDAY_DATE_YEAR))
 
             items.add(BirthdayNote(id, name, date_day, date_month, date_year))
         }
@@ -57,6 +67,8 @@ class AddBirthdayFragment : Fragment() {
             val itemToDelete = items[position].id
             dbHelper.deleteData(itemToDelete)
 
+            deleteAlarm(requireContext(), itemToDelete.toInt())
+
             items.removeAt(position)
             sortItems()
             adapter.notifyDataSetChanged()
@@ -67,7 +79,8 @@ class AddBirthdayFragment : Fragment() {
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedItem = items[position]
-            Toast.makeText(requireContext(), "Clicked: ${selectedItem.name}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Clicked: ${selectedItem.name}", Toast.LENGTH_SHORT)
+                .show()
         }
 
         //TODO Исправить положение объектов, чтобы кнопка не перекрывала item-ы
@@ -106,19 +119,36 @@ class AddBirthdayFragment : Fragment() {
                     val dateList: List<String> = inputDate.text.toString().split(".")
                     val resultDateList = concatDate(dateList)
 
-                    val id = dbHelper.insertData(inputName.text.toString(), resultDateList[0]!!, resultDateList[1]!!, resultDateList[2])
-                    items.add(BirthdayNote
-                        (id,
+                    val id = dbHelper.insertData(
                         inputName.text.toString(),
                         resultDateList[0]!!,
                         resultDateList[1]!!,
-                        resultDateList[2]))
+                        resultDateList[2]
+                    )
+                    items.add(
+                        BirthdayNote (
+                            id,
+                            inputName.text.toString(),
+                            resultDateList[0]!!,
+                            resultDateList[1]!!,
+                            resultDateList[2]
+                        )
+                    )
                     sortItems()
                     adapter.notifyDataSetChanged()
 
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQUEST_CODE_POST_NOTIFICATIONS)
+                        }
+                    }
+
+                    setAlarm(requireContext(), dateList[0].toInt(), dateList[1].toInt(), id.toInt(), inputName.text.toString())
+
                     dialog.dismiss()
                 } else {
-                    Toast.makeText(context, "Никак вы, блиннн, не научитесь!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Никак вы, блиннн, не научитесь!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             } else {
                 Toast.makeText(context, "Неправильно введенное имя!", Toast.LENGTH_SHORT).show()
@@ -126,7 +156,7 @@ class AddBirthdayFragment : Fragment() {
         }
     }
 
-    private fun concatDate(dateList: List<String>) : MutableList<String?> {
+    private fun concatDate(dateList: List<String>): MutableList<String?> {
         val resultList = MutableList<String?>(3) { null }
         val concatString = StringBuilder()
 
@@ -146,24 +176,24 @@ class AddBirthdayFragment : Fragment() {
         return resultList
     }
 
-    private fun checkIsCorrectName(name: String) : Boolean {
+    private fun checkIsCorrectName(name: String): Boolean {
         return name.matches(Regex("^[а-яА-Яa-zA-Z ]+$"))
     }
 
-    private fun checkIsCorrectDate(date: String) : Boolean {
+    private fun checkIsCorrectDate(date: String): Boolean {
         var dateList: List<String>
 
         try {
             SimpleDateFormat("dd.mm.yyyy", Locale.getDefault()).parse(date)
             dateList = date.split(".")
-            if (Integer.parseInt(dateList[2]) !in 1000 .. 4000) {
+            if (Integer.parseInt(dateList[2]) !in 1000..4000) {
                 return false
             }
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             try {
                 SimpleDateFormat("dd.mm", Locale.getDefault()).parse(date)
                 dateList = date.split(".")
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 return false
             }
         }
@@ -175,20 +205,20 @@ class AddBirthdayFragment : Fragment() {
         try {
             monthNumber = Integer.parseInt(dateList[1])
             dayNumber = Integer.parseInt(dateList[0])
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             return false
         }
 
-        if (monthNumber !in 1 .. 12) {
+        if (monthNumber !in 1..12) {
             return false
         }
 
-        if (dayNumber !in 1 .. 28) {
+        if (dayNumber !in 1..28) {
             if (monthNumber == 2) {
                 return false
             }
 
-            if (dayNumber !in 29 .. 30) {
+            if (dayNumber !in 29..30) {
                 if (monthNumber in days30list) {
                     return false
                 }
@@ -203,7 +233,7 @@ class AddBirthdayFragment : Fragment() {
     }
 
     private fun sortItems() {
-        val sortedItemsList = items.sortedWith(compareBy({it.date_month}, {it.date_day}))
+        val sortedItemsList = items.sortedWith(compareBy({ it.date_month }, { it.date_day }))
         var i = 0
 
         for (el in sortedItemsList) {
