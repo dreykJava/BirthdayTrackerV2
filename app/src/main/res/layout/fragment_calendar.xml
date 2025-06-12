@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/surface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,7 +12,7 @@
         android:id="@+id/selected_birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Выберите дату!"
+        android:text=""
         android:textAlignment="center"
         android:textSize="20sp"
         android:layout_marginTop="20dp"
@@ -23,11 +24,19 @@
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
-        <Button
+        <ImageButton
             android:id="@+id/previous_month_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/add_button_shape"
+            android:backgroundTint="@color/primary"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_marginTop="8dp"
+            app:tint="@color/surface"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,17 +58,23 @@
                 android:textAlignment="center"
                 />
         </LinearLayout>
-        <Button
+        <ImageButton
             android:id="@+id/next_month_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/add_button_shape"
+            android:backgroundTint="@color/primary"
+            android:src="@drawable/ic_arrow_next"
+            android:layout_marginTop="8dp"
+            app:tint="@color/surface"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
     <com.example.birthdaytrackerv2.ui.calendarview.NewCustomCalendarView
         android:id="@+id/my_calendar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>
-
-
 </LinearLayout>

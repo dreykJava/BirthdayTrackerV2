@@ -6,11 +6,9 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import com.example.birthdaytrackerv2.ui.calendar.CalendarFragment
 import com.example.birthdaytrackerv2.ui.data.BirthdayNote
 import com.example.birthdaytrackerv2.ui.data.MyDatabase
 import java.util.Calendar
@@ -28,6 +26,7 @@ class NewCustomCalendarView @JvmOverloads constructor(
     private lateinit var itemsWithBirthdayName: List<ArrayList<String>>
     private lateinit var dbHelper: MyDatabase
     private lateinit var cursor: Cursor
+
     private var maxDayCount: Int = 0
 
     private val usualDate = Paint().apply {
@@ -50,10 +49,10 @@ class NewCustomCalendarView @JvmOverloads constructor(
 
     private val weekDayList = listOf("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс")
     private var calendar = Calendar.getInstance()
+    private var currentCalendar = Calendar.getInstance()
     private val currentYear = calendar.get(Calendar.YEAR)
     private val currentMonth = calendar.get(Calendar.MONTH)
-    private val currentDayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
-    private var currentWeekOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+    private var currentDayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
 
     init {
         setItemsFromDb()
@@ -75,6 +74,7 @@ class NewCustomCalendarView @JvmOverloads constructor(
 
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         val firstDayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
+        var currentWeekOfMonth = currentCalendar.get(Calendar.DAY_OF_MONTH)
         currentWeekOfMonth = (firstDayOfWeek + currentWeekOfMonth - 1) / 7
 
         val textHeight = textDesign.descent() + textDesign.ascent()
@@ -148,6 +148,8 @@ class NewCustomCalendarView @JvmOverloads constructor(
             )
         }
 
+        //Рисуем текущую дату
+        //drawCurrentMonth(canvas, centerX, centerY, radius)
         if (calendar.get(Calendar.YEAR) == currentYear
             && calendar.get(Calendar.MONTH) == currentMonth) {
             canvas.drawCircle(
@@ -158,6 +160,26 @@ class NewCustomCalendarView @JvmOverloads constructor(
             )
         }
     }
+
+    /**
+    private fun drawCurrentMonth(canvas: Canvas, centerX: Float, centerY: Float, radius: Float) {
+        //Рисуем текущую дату
+        if (calendar.get(Calendar.YEAR) == currentYear
+            && calendar.get(Calendar.MONTH) == currentMonth) {
+
+
+            canvas.drawCircle(
+                centerX + currentDayOfWeek * centerX * 2,
+                centerY + currentWeekOfMonth * centerX * 2,
+                radius,
+                currentDate
+            )
+        }
+
+        private val currentDayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
+        private var currentWeekOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+    }
+    */
 
     private fun updateMonthDraw(monthNumber: Int) {
         if (monthNumber - calendar.get(Calendar.MONTH) > 1) {

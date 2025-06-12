@@ -22,12 +22,12 @@
         app:layout_constraintTop_toBottomOf="@id/birthday_man_name"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/delete_item_list_btn"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/ic_delete_gray"
-        android:backgroundTint="@null"
+        android:backgroundTint="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

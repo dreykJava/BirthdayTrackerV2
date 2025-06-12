@@ -18,8 +18,6 @@ class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
     private val CHANNEL_ID = "channel_id"
 
-    //TODO Добавить установку push-ей (скорее всего в AddBirthday)
-    //TODO Убрать заголовки в фрагментах
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,3 +56,5 @@ class StartActivity : AppCompatActivity() {
         }
     }
 }
+
+//android:paddingTop="?attr/actionBarSize">

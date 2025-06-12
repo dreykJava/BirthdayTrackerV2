@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import com.example.birthdaytrackerv2.ui.data.BirthdayNote
 import java.util.Calendar
 
 class CustomCalendarView @JvmOverloads constructor(
@@ -26,7 +25,7 @@ class CustomCalendarView @JvmOverloads constructor(
     private val days = listOf("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс")
     private var currentMonth = Calendar.getInstance()
     private var dates = mutableListOf<String>()
-    private var selectedDate: String? = null
+    //private var selectedDate: String? = null
     private var eventDates = mutableListOf<String>() // Даты из базы данных
 
     init {
@@ -114,6 +113,7 @@ class CustomCalendarView @JvmOverloads constructor(
         Toast.makeText(context, "Выбрана дата: $date", Toast.LENGTH_SHORT).show()
     }
 
+    /**
     fun setCurrentMonth(calendar: Calendar) {
         currentMonth = calendar
         updateDatesForCurrentMonth()
@@ -128,4 +128,5 @@ class CustomCalendarView @JvmOverloads constructor(
 
         invalidate() // Перерисовываем View
     }
+    */
 }

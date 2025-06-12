@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -83,8 +84,7 @@ class AddBirthdayFragment : Fragment() {
                 .show()
         }
 
-        //TODO Исправить положение объектов, чтобы кнопка не перекрывала item-ы
-        val addButton: Button = binding.addButton
+        val addButton: ImageButton = binding.addButton
         addButton.setOnClickListener {
             showInputDialog(requireContext())
         }
@@ -103,7 +103,7 @@ class AddBirthdayFragment : Fragment() {
         //TODO Изменить дизайн
         val dialog = AlertDialog.Builder(context)
             .setTitle("Добавление")
-            .setMessage("Заполни дебил:")
+            .setMessage("Заполните имя и дату:")
             .setView(container)
             .create()
 
@@ -147,7 +147,7 @@ class AddBirthdayFragment : Fragment() {
 
                     dialog.dismiss()
                 } else {
-                    Toast.makeText(context, "Никак вы, блиннн, не научитесь!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Неправильно введенная дата!", Toast.LENGTH_SHORT)
                         .show()
                 }
             } else {

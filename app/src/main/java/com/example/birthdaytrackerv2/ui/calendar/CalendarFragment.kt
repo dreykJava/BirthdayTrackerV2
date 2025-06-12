@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,8 +19,8 @@ class CalendarFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var customCalendarView: NewCustomCalendarView
-    private lateinit var previousButton: Button
-    private lateinit var nextButton: Button
+    private lateinit var previousButton: ImageButton
+    private lateinit var nextButton: ImageButton
     private lateinit var selectedMonth: TextView
     private lateinit var selectedYear: TextView
     private lateinit var selectedBirthday: TextView
@@ -36,14 +36,14 @@ class CalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
         sharedViewModel.sharedData.observe(viewLifecycleOwner) { data ->
             items = data
         }
-
-        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         selectedBirthday = binding.selectedBirthday
         //TODO Для календаря сделать статичный размер, чтобы можно было распологать элементы снизу

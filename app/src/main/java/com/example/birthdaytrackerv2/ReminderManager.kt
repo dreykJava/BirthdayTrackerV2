@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import java.util.Calendar
 
-//TODO Рассмотреть вариант обновления всех уведомлений при запуске приложения (чтобы после перезапуска восстановить) (4)
 object ReminderManager {
     fun setAlarm(context: Context, day: Int, month: Int, id: Int, name: String) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

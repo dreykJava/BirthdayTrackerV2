@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.example.birthdaytrackerv2.R
 
@@ -23,7 +23,7 @@ class BirthdayAdapter(
 
         val nameTextView: TextView = itemView.findViewById(R.id.birthday_man_name)
         val dateTextView: TextView = itemView.findViewById(R.id.birthday_man_date)
-        val deleteBtn: Button = itemView.findViewById(R.id.delete_item_list_btn)
+        val deleteBtn: ImageButton = itemView.findViewById(R.id.delete_item_list_btn)
 
         nameTextView.text = item.name
         dateTextView.text = concatDate(item.date_day, item.date_month, item.date_year)

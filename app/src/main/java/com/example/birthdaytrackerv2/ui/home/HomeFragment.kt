@@ -23,7 +23,6 @@ class HomeFragment : Fragment() {
     private lateinit var cursor: Cursor
     private lateinit var sharedViewModel: SharedViewModel
 
-    //TODO изменить дизайн
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -56,8 +56,7 @@ class MyDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nu
     }
 
     //TODO Сделать возможность редактирования записей
-
-    // Метод для обновления данных
+    //Метод для обновления данных
     fun updateData(id: Int, name: String, date_day: String, date_month: String, date_year: String): Int {
         val db = writableDatabase
         val values = ContentValues().apply {
