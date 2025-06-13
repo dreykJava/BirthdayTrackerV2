@@ -27,7 +27,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/ic_delete_gray"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/button_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

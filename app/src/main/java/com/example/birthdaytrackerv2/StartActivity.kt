@@ -56,5 +56,3 @@ class StartActivity : AppCompatActivity() {
         }
     }
 }
-
-//android:paddingTop="?attr/actionBarSize">

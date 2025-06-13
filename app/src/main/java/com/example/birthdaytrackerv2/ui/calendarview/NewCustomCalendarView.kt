@@ -9,6 +9,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.example.birthdaytrackerv2.R
 import com.example.birthdaytrackerv2.ui.data.BirthdayNote
 import com.example.birthdaytrackerv2.ui.data.MyDatabase
 import java.util.Calendar
@@ -30,10 +32,10 @@ class NewCustomCalendarView @JvmOverloads constructor(
     private var maxDayCount: Int = 0
 
     private val usualDate = Paint().apply {
-        setColor(Color.YELLOW)
+        color = ContextCompat.getColor(context, R.color.calendar_neutral_date_color)
     }
     private val birthdayDate = Paint().apply {
-        setColor(Color.RED)
+        color = ContextCompat.getColor(context, R.color.calendar_birthdays_date_color)
     }
     private val currentDate = Paint().apply {
         setColor(Color.RED)
@@ -42,6 +44,7 @@ class NewCustomCalendarView @JvmOverloads constructor(
         isAntiAlias = true
     }
     private val textDesign = Paint().apply {
+        color = ContextCompat.getColor(context, R.color.calendar_text_color)
         textSize = 60f
         textAlign = Paint.Align.CENTER
         isAntiAlias = true
@@ -67,7 +70,6 @@ class NewCustomCalendarView @JvmOverloads constructor(
         val centerX = width * 1f / 7 / 2
         val centerY = height * 1f / 7
 
-        birthdayDate.setColor(Color.GREEN)
         currentDate.setColor(Color.RED)
 
         maxDayCount = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)

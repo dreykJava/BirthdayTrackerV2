@@ -3,9 +3,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_start">StartActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_calendar">Calendar</string>
-    <string name="title_add">Add</string>
+    <string name="title_home">Главная</string>
+    <string name="title_calendar">Календарь</string>
+    <string name="title_add">Добавление</string>
 
     <string-array name="months">
         <item>Январь</item>

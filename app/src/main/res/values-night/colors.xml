@@ -8,13 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#6750A4</color>
-    <color name="surface">#FEF7FF</color>
+    <color name="primary">#FEF7FF</color>
+    <color name="surface">#4B0082</color>
     <color name="primary_variant">#89548d</color>
-    <color name="button_text_color">#69548d</color>
-    <color name="button_color">#e9ddff</color>
+    <color name="button_text_color">#e9ddff</color>
+    <color name="button_color">#69548d</color>
 
-    <color name="calendar_text_color">#000000</color>
-    <color name="calendar_neutral_date_color">#FFFF00</color>
-    <color name="calendar_birthdays_date_color">#7FFF00</color>
+    <color name="calendar_text_color">#e9ddff</color>
+    <color name="calendar_neutral_date_color">#DAA520</color>
+    <color name="calendar_birthdays_date_color">#589000</color>
 </resources>

@@ -45,7 +45,7 @@ class CalendarFragment : Fragment() {
             items = data
         }
 
-        selectedBirthday = binding.selectedBirthday
+        //selectedBirthday = binding.selectedBirthday
         //TODO Для календаря сделать статичный размер, чтобы можно было распологать элементы снизу
         customCalendarView = binding.myCalendarView
         //customCalendarView.setItemsFromDb(items)

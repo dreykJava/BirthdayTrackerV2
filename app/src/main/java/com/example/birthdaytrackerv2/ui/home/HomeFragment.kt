@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.birthdaytrackerv2.databinding.FragmentHomeBinding
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
 
         //TODO Можно объявить глобально и обращаться напрямую к ссылкам в методе
         val nextBirthdayNameTextView: TextView = binding.textNextBirthdayName
-        val nextBirthdayTextView: TextView = binding.textNextBirthday
+        val nextBirthdayTextView: TextView = binding.textNextBirthdayDate
 
         nextBirthdayNameTextView.text = nextBirthdayList[0]
         nextBirthdayTextView.text = nextBirthdayList[1]
@@ -74,8 +75,8 @@ class HomeFragment : Fragment() {
         var totalDifference = 500
         var currentDifference: Int
 
-        var nextBirthdayName = "Ни у кого"
-        var nextBirthdayDate = ":("
+        var nextBirthdayName = ":("
+        var nextBirthdayDate = "Ни у кого"
         val stringBuilder = StringBuilder()
 
         for (el in items) {
@@ -155,7 +156,18 @@ class HomeFragment : Fragment() {
             }
         }
 
+        if (nextBirthdayName != ":(") {
+            stringBuilder.clear()
+            stringBuilder.append("Именинник: ")
+            stringBuilder.append(nextBirthdayName)
+            nextBirthdayName = stringBuilder.toString()
+        }
         return listOf(nextBirthdayName, nextBirthdayDate)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? AppCompatActivity)?.supportActionBar?.hide()
     }
 
     override fun onDestroyView() {

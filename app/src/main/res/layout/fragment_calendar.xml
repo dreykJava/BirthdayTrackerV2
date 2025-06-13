@@ -2,26 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/surface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.calendar.CalendarFragment">
 
-    <TextView
-        android:id="@+id/selected_birthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
         <ImageButton
@@ -29,10 +20,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/add_button_shape"
-            android:backgroundTint="@color/primary"
             android:src="@drawable/ic_arrow_back"
+            app:tint="@color/button_text_color"
             android:layout_marginTop="8dp"
-            app:tint="@color/surface"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="10dp"
@@ -49,12 +39,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Февраль"
+                android:textSize="16sp"
                 android:textAlignment="center"/>
             <TextView
                 android:id="@+id/current_selected_year_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2025"
+                android:textSize="16sp"
                 android:textAlignment="center"
                 />
         </LinearLayout>
@@ -63,10 +55,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/add_button_shape"
-            android:backgroundTint="@color/primary"
             android:src="@drawable/ic_arrow_next"
+            app:tint="@color/button_text_color"
             android:layout_marginTop="8dp"
-            app:tint="@color/surface"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="10dp"
